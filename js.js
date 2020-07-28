@@ -1,8 +1,18 @@
 let clog = console.log;
 
-let numb;
+let numb = '';
 function numberRandom () {
-    return numb = Math.floor(1000 + Math.random() * (10000-1000)) + '';
+    numb += Math.floor(Math.random()*10);
+    for (i = 0; i < 3; i++){
+        numb += Math.floor(Math.random()*10);
+        for(j = 0; j < numb.length; j++) {
+            clog(numb)
+            if(i !== 0 && numb[i] == numb[j]){
+                numb[j] = Math.floor(Math.random()*10);
+                clog(numb[j])
+            }
+        }
+    }   
 }
 window.onload = numberRandom();
 
@@ -22,9 +32,6 @@ function gameFunction (number) {
     let numbF = numb.split('');
     let numberF = number.split('');
     let numberHide = ["*","*","*","*"];
-    console.log(numbF);
-    clog(numberF)
-
 
     for( let key in numberF ) {
         for ( let key1 in numbF ) {
@@ -40,4 +47,8 @@ function gameFunction (number) {
     }
 
     gebcl('tableGame').children[0].appendChild(document.createElement('tr')).appendChild(document.createElement('td')).innerText = number;
+    gebcl('tableGame').children[0].lastChild.appendChild(document.createElement('td')).innerText = numberHide.join('');
+    if(numberHide == 'BBBB'){
+        prompt('WIN!')
+    }
 }
