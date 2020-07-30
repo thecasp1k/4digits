@@ -3,16 +3,26 @@ let clog = console.log;
 let numb = '';
 function numberRandom () {
     numb += Math.floor(Math.random()*10);
-    for (i = 0; i < 3; i++){
-        numb += Math.floor(Math.random()*10);
-        for(j = 0; j < numb.length; j++) {
-            clog(numb)
-            if(i !== 0 && numb[i] == numb[j]){
-                numb[j] = Math.floor(Math.random()*10);
-                clog(numb[j])
-            }
+    let i = 0;
+    let extraNumb = Math.floor(Math.random()*10);
+    while ( i < 4) {
+        if (extraNumb == numb[i]) {
+            extraNumb = Math.floor(Math.random()*10);
+            i = 0;
+            continue;
         }
-    }   
+        else if (extraNumb != numb[i] && i+1 == numb.length && i != 3) {
+            numb += extraNumb;
+            if(numb.length == 4) {
+                break;
+            }
+            i = 0;
+            continue;
+        } else {
+            i++;
+        }
+    }
+    clog(numb)
 }
 window.onload = numberRandom();
 
