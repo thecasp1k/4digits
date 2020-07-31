@@ -22,7 +22,6 @@ function numberRandom () {
             i++;
         }
     }
-    clog(numb)
 }
 window.onload = numberRandom();
 
@@ -42,12 +41,16 @@ function gameFunction (number) {
     let numbF = numb.split('');
     let numberF = number.split('');
     let numberHide = ["*","*","*","*"];
+    let numberP = numberHide;
 
     for( let key in numberF ) {
         for ( let key1 in numbF ) {
             if(numberF[key] == numbF[key1] && key == key1) {
                 numberHide[key] = 'B';
-                gebcl('number').innerText[key] = numberF[key];
+                numberP[key] = 'B';
+                numberP = numberP.join('').replace(/B/,numbF[key]);
+                gebcl('number').innerText = numberP;
+                numberP = numberP.split('');
                 continue;
             } else if (numberF[key] == numbF[key1] && key != key1) {
                 numberHide[key] = 'C';
@@ -58,7 +61,9 @@ function gameFunction (number) {
 
     gebcl('tableGame').children[0].appendChild(document.createElement('tr')).appendChild(document.createElement('td')).innerText = number;
     gebcl('tableGame').children[0].lastChild.appendChild(document.createElement('td')).innerText = numberHide.join('');
-    if(numberHide == 'BBBB'){
-        prompt('WIN!')
+    if (numberHide.join('') == 'BBBB') {
+        if( confirm(`WIN!\n Number of moves: ${gebcl('attempt').innerText}\nNew game?`) ) {
+            location.reload();
+        }
     }
 }
